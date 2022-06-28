@@ -1,0 +1,18 @@
+{
+  "name": "lunch-ly-reservation-system",
+  "version": "1.0.0",
+  "description": "Object-Oriented Node-pg Exercise => Lunch.ly Reservation System",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Brian Elizondo",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "moment": "^2.22.2",
+    "nunjucks": "^3.1.3",
+    "pg": "^8.3.3"
+  }
+}
