@@ -28,6 +28,17 @@ router.get("/", async function(req, res, next) {
   }
 });
 
+/** Show list of top 10 customers. */
+
+router.get("/top-ten/", async function(req, res, next) {
+  try {
+    const customers = await Customer.topTen();
+    return res.render("customer_top_ten.html", { customers });
+  } catch (err) {
+    return next(err);
+  }
+});
+
 /** Form to add a new customer. */
 
 router.get("/add/", async function(req, res, next) {
