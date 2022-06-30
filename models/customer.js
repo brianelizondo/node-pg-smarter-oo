@@ -14,6 +14,19 @@ class Customer {
     this.notes = notes;
   }
 
+  /** 
+   * methods and functions 
+   * setter and getter
+  */
+  // Get full name customer with regular method
+  // fullName(){
+  //   return `${this.firstName} ${this.lastName}`;
+  // }
+  get fullName(){
+    return `${this.firstName} ${this.lastName}`;
+  }
+
+
   /** find all customers. */
 
   static async all() {
@@ -123,9 +136,6 @@ class Customer {
     }
   }
 
-  fullName(){
-    return `${this.firstName} ${this.lastName}`;
-  }
 }
 
 module.exports = Customer;
