@@ -15,6 +15,19 @@ class Reservation {
     this.startAt = startAt;
     this.notes = notes;
   }
+  /** 
+   * methods and functions 
+   * setter and getter
+  */
+  get num_Guests() {
+    return this.numGuests;
+  }
+  set num_Guests(qty) {
+    if(qty < 1){
+      throw new Error("Reservations must be for at least 1 person");
+    }
+    this.numGuests = qty;
+  }
 
   /** formatter for startAt */
 
