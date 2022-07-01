@@ -15,6 +15,14 @@
              value="{{ customer.firstName }}">
   </div>
   <div class="form-group">
+    <label for="middle-name">Middle Name: </label>
+      <input id="middle-name"
+             class="form-control"
+             name="middleName"
+             value="{{ customer.middleName }}">
+      <div id="middleNameHelp" class="form-text">* This field is optional</div>
+  </div>
+  <div class="form-group">
     <label for="last-name">Last Name:</label>
         <input id="last-name"
                class="form-control"
