@@ -63,17 +63,47 @@ class Reservation {
 
   static async getReservationsForCustomer(customerId) {
     const results = await db.query(
-          `SELECT id, 
+        `SELECT id, 
            customer_id AS "customerId", 
            num_guests AS "numGuests", 
            start_at AS "startAt", 
            notes AS "notes"
-         FROM reservations 
-         WHERE customer_id = $1`,
+        FROM reservations 
+        WHERE customer_id = $1`,
         [customerId]
     );
 
     return results.rows.map(row => new Reservation(row));
+  }
+
+  /** given a customer id, find their last reservations. */
+
+  static async getLastReservationForCustomer(customerId) {
+    const results = await db.query(
+        `SELECT id, 
+           customer_id AS "customerId", 
+           num_guests AS "numGuests", 
+           start_at AS "startAt", 
+           notes AS "notes"
+        FROM reservations 
+        WHERE customer_id = $1 
+        ORDER BY id DESC 
+        LIMIT 1`,
+        [customerId]
+    );
+    
+    if(results.rows[0] === undefined){
+      return false;
+    }
+    return new Reservation(results.rows[0]);
+    
+    // const reservation = results.rows[0];
+    
+    // if(reservation === undefined){
+    //   return false;
+    // }
+    
+    // return new Reservation(reservation);
   }
 
   /** save this reservation. */

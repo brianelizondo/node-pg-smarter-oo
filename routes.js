@@ -23,7 +23,12 @@ router.get("/search", async function(req, res, next) {
 router.get("/", async function(req, res, next) {
   try {
     const customers = await Customer.all();
-    return res.render("customer_list.html", { customers });
+    var customer_last_reservation = [];
+    for(let customer of customers){
+      customer_last_reservation.push(await customer.getLastReservation());
+    }
+    
+    return res.render("customer_list.html", { customers, customer_last_reservation });
   } catch (err) {
     return next(err);
   }

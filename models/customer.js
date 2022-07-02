@@ -125,6 +125,11 @@ class Customer {
     return await Reservation.getReservationsForCustomer(this.id);
   }
 
+  /** get all reservations for this customer. */
+  async getLastReservation() {
+    return await Reservation.getLastReservationForCustomer(this.id);
+  }
+
   /** save this customer. */
 
   async save() {

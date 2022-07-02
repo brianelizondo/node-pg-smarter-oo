@@ -8,7 +8,12 @@
 
 <ul style="column-count: 4">
   {% for customer in customers %}
-  <li><a href="/{{ customer.id }}/">{{ customer.fullName }}</a></li>
+  <li class="mb-4">
+    <a href="/{{ customer.id }}/">{{ customer.fullName }}</a><br>
+    {% if customer_last_reservation[loop.index0] %}
+    <span style="font-size:9px;"><b>Last Reservation:</b> {{ customer_last_reservation[loop.index0].getformattedStartAt() }} for {{ customer_last_reservation[loop.index0].numGuests }}</span>
+    {% endif %}
+  </li>
   {% endfor %}
 </ul>
 
