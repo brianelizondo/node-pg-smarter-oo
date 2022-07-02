@@ -1,6 +1,7 @@
 /** Routes for Lunchly */
 
 const express = require("express");
+const moment = require('moment');
 
 const Customer = require("./models/customer");
 const Reservation = require("./models/reservation");
@@ -136,6 +137,33 @@ router.post("/:id/add-reservation/", async function(req, res, next) {
   }
 });
 
+/** Handle form to edit a reservation. */
+router.get("/:id/edit-reservation/:r_id", async function(req, res, next) {
+  try {
+    const customer = await Customer.get(req.params.id);
+    let reservation = await Reservation.get(req.params.r_id);
+    reservation.startAt = moment(reservation.startAt).format("YYYY-MM-DD HH:mm a");
 
+    res.render("reservation_edit_form.html", { customer, reservation });
+  } catch (err) {
+    return next(err);
+  }
+});
+
+/** Handle editing a reservation. */
+
+router.post("/:id/edit-reservation/:r_id", async function(req, res, next) {
+  try {
+    let reservation = await Reservation.get(req.params.r_id);
+    reservation.startAt = new Date(req.body.startAt);
+    reservation.numGuests = req.body.numGuests;
+    reservation.notes = req.body.notes;
+    await reservation.save();
+
+    return res.redirect(`/${req.params.id}/`);
+  } catch (err) {
+    return next(err);
+  }
+});
 
 module.exports = router;
