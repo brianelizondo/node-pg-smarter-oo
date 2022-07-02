@@ -79,10 +79,13 @@ router.post("/add/", async function(req, res, next) {
 router.get("/:id/", async function(req, res, next) {
   try {
     const customer = await Customer.get(req.params.id);
-
     const reservations = await customer.getReservations();
+    const customer_last_reservation = await customer.getLastReservation();
+    if(customer_last_reservation){
+      customer_last_reservation.fromNow = moment(customer_last_reservation.startAt).fromNow();
+    }
 
-    return res.render("customer_detail.html", { customer, reservations });
+    return res.render("customer_detail.html", { customer, reservations, customer_last_reservation });
   } catch (err) {
     return next(err);
   }
@@ -147,7 +150,7 @@ router.get("/:id/edit-reservation/:r_id", async function(req, res, next) {
   try {
     const customer = await Customer.get(req.params.id);
     let reservation = await Reservation.get(req.params.r_id);
-    reservation.startAt = moment(reservation.startAt).format("YYYY-MM-DD HH:mm a");
+    reservation.startAt = moment(reservation.startAt).format("YYYY-MM-DD h:mm a");
 
     res.render("reservation_edit_form.html", { customer, reservation });
   } catch (err) {

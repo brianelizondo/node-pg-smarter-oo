@@ -15,6 +15,21 @@
 
     <p><a class="btn btn-primary" href="/{{ customer.id }}/edit/">Edit</a></p>
 
+    <h2>Last Reservation</h2>
+    {% if customer_last_reservation %}
+    <ul>
+      <li>
+        <a href="/{{ customer.id }}/edit-reservation/{{ customer_last_reservation.id }}">
+          <b>{{ customer_last_reservation.getformattedStartAt() }}</b> 
+          for {{ customer_last_reservation.numGuests }}</a><br>
+          <span>{{ customer_last_reservation.fromNow }}</span>
+        </a>
+      </li>
+    </ul>
+    {% else %}
+    <p>None!</p>
+    {% endif %}
+
     <h2>Reservations</h2>
     {% if reservations %}
     <ul>
