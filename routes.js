@@ -27,7 +27,7 @@ router.get("/", async function(req, res, next) {
     for(let customer of customers){
       customer_last_reservation.push(await customer.getLastReservation());
     }
-    
+    console.log(res);
     return res.render("customer_list.html", { customers, customer_last_reservation });
   } catch (err) {
     return next(err);
